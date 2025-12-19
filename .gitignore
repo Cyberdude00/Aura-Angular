@@ -1,1 +1,66 @@
-node_modules
+﻿# Dependencies
+node_modules/
+package-lock.json
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# OS
+AppData/
+Cookies/
+Configuración local/
+Datos de programa/
+Entorno de red/
+Impresoras/
+Menú Inicio/
+Mis documentos/
+Plantillas/
+Reciente/
+SendTo/
+
+# Windows
+*.lnk
+NTUSER.DAT*
+ntuser.dat*
+ntuser.ini
+battery-report.html
+
+# User Folders/Files
+.cache/
+.gemini/
+Biblioteca de calibre/
+CSECDViewer/
+Calibre Library/
+Contacts/
+CrossDevice/
+Documents/
+Dropbox/
+Favorites/
+Games/
+Links/
+Local Sites/
+Music/
+OneDrive/
+Pictures/
+Searches/
+Videos/
+iCloudDrive/
+
+# Other
+vite
+git
+npm
+cd
+
+# Yarn
+.yarn/
+.yarnrc.yml

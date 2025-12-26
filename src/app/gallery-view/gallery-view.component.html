@@ -1,0 +1,68 @@
+<!-- 
+  Este archivo replica la estructura de la galería original, pero usando Angular.
+  La lógica ahora es controlada por 'gallery-view.component.ts'.
+-->
+
+<!-- Rejilla Principal de Modelos -->
+<main class="grid-container">
+  <div class="card" *ngFor="let model of (models$ | async)" (click)="openPolas(model)">
+    <div class="card-image-container">
+      <img [src]="model.photo" [alt]="model.name" class="card-image" loading="lazy">
+      <div class="card-overlay">
+        <span class="card-name">{{ model.name }}</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- 
+  Sección Modal de "Polas" (Detalle del Modelo)
+  Se muestra condicionalmente si 'selectedModel' existe.
+-->
+<section class="polas-section" [ngClass]="{'visible': selectedModel}">
+  <div class="polas-inner" *ngIf="selectedModel">
+    <button class="close-polas" title="Close" (click)="closePolas()">&times;</button>
+    
+    <div class="polas-header">
+      <div class="polas-name">{{ selectedModel.name }}</div>
+      <div class="polas-measures">
+        <span>H: {{ selectedModel.height }}</span> | 
+        <span>{{ selectedModel.measurements }}</span> | 
+        <span>Shoe: {{ selectedModel.shoe }}</span> | 
+        <span>Hair: {{ selectedModel.hair }}</span> | 
+        <span>Eyes: {{ selectedModel.eyes }}</span>
+      </div>
+      <!-- La lógica de conversión de unidades se puede añadir aquí si es necesario -->
+    </div>
+
+    <div class="polas-gallery">
+      <div class="pola-item" *ngFor="let image of selectedModel.portfolio; let i = index" (click)="openImageViewer(selectedModel.portfolio, i)">
+        <img [src]="image" [alt]="selectedModel.name + ' portfolio image ' + i" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Sección de Instagram (si hay datos) -->
+    <div class="instagram-section" *ngIf="selectedModel.instagram && selectedModel.instagram.length > 0">
+      <div class="insta-title">Instagram</div>
+      <div class="insta-gallery">
+         <div class="pola-item" *ngFor="let instaImage of selectedModel.instagram; let i = index">
+            <img [src]="instaImage" [alt]="selectedModel.name + ' instagram image ' + i" loading="lazy">
+         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 
+  Visor de Imagen/Video (Lightbox)
+  Se muestra condicionalmente si 'currentImage' existe.
+-->
+<div class="img-viewer-modal" [ngClass]="{'visible': currentImage}">
+  <span class="img-viewer-close" tabindex="0" (click)="closeImageViewer()">&times;</span>
+  <div class="img-viewer-content">
+    <img *ngIf="currentImage && !isCurrentMediaVideo" [src]="currentImage" class="img-viewer-img" [alt]="'Full size image ' + (currentIndex + 1)">
+    <video *ngIf="currentImage && isCurrentMediaVideo" [src]="currentImage" class="img-viewer-img" controls autoplay loop playsinline></video>
+  </div>
+  <div class="img-viewer-nav img-viewer-prev" tabindex="0" (click)="navigateImageViewer(-1)">&#10094;</div>
+  <div class="img-viewer-nav img-viewer-next" tabindex="0" (click)="navigateImageViewer(1)">&#10095;</div>
+</div>

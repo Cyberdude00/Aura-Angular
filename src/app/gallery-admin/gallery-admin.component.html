@@ -1,0 +1,139 @@
+<div class="admin-container">
+
+  <!-- Columna Izquierda: Lista de Modelos -->
+  <div class="model-list-container">
+    <h2 class="mat-h2">Modelos</h2>
+    <mat-table [dataSource]="models$" class="mat-elevation-z8 model-table">
+
+      <!-- Columna Nombre -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let model"> {{model.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Columna Género -->
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef> Género </mat-header-cell>
+        <mat-cell *matCellDef="let model"> {{model.gender}} </mat-cell>
+      </ng-container>
+
+      <!-- Columna Altura -->
+      <ng-container matColumnDef="height">
+        <mat-header-cell *matHeaderCellDef> Altura </mat-header-cell>
+        <mat-cell *matCellDef="let model"> {{model.height}} </mat-cell>
+      </ng-container>
+
+      <!-- Columna Acciones -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let model">
+          <button mat-icon-button color="warn" (click)="deleteModel(model.id, $event)" matTooltip="Eliminar Modelo">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row (click)="selectModel(row)" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+  </div>
+
+  <!-- Columna Derecha: Formulario de Edición/Creación -->
+  <div class="form-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ isEditing ? 'Editar Modelo' : 'Agregar Nuevo Modelo' }}</mat-card-title>
+        <mat-card-subtitle *ngIf="isEditing">{{ selectedModel?.name }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form [formGroup]="modelForm" class="model-form">
+          
+          <!-- Fila 1: Nombre y Género -->
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="name" required>
+              <mat-error *ngIf="modelForm.get('name')?.hasError('required')">El nombre es requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Género</mat-label>
+              <mat-select formControlName="gender">
+                <mat-option value="Hombres">Hombre</mat-option>
+                <mat-option value="Girl">Mujer</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Fila 2: Altura y Medidas -->
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Altura</mat-label>
+              <input matInput formControlName="height">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Medidas</mat-label>
+              <input matInput formControlName="measurements">
+            </mat-form-field>
+          </div>
+
+          <!-- Fila 3: Cabello y Ojos -->
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Cabello</mat-label>
+              <input matInput formControlName="hair">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-field">
+              <mat-label>Ojos</mat-label>
+              <input matInput formControlName="eyes">
+            </mat-form-field>
+          </div>
+          
+          <!-- Fila 4: Calzado -->
+          <div class="form-row">
+            <mat-form-field appearance="fill" class="form-field-full">
+              <mat-label>Calzado</mat-label>
+              <input matInput formControlName="shoe">
+            </mat-form-field>
+          </div>
+
+          <!-- Foto Principal -->
+          <h3 class="mat-h3">Foto Principal</h3>
+          <div class="image-preview-container">
+            <img *ngIf="modelForm.value.photo" [src]="modelForm.value.photo" class="image-preview" alt="Foto principal">
+          </div>
+          <button type="button" mat-stroked-button (click)="mainPhotoUpload.click()">
+            <mat-icon>upload_file</mat-icon> Subir Foto Principal
+          </button>
+          <input hidden type="file" #mainPhotoUpload (change)="onMainPhotoUpload($event)" accept="image/*">
+          
+          <!-- Galería de Portfolio -->
+          <h3 class="mat-h3">Portfolio</h3>
+          <div class="portfolio-grid">
+            <div *ngFor="let imageUrl of modelForm.value.portfolio" class="portfolio-item">
+              <img [src]="imageUrl" class="image-preview" alt="Imagen de portfolio">
+              <button mat-icon-button class="remove-image-btn" (click)="removePortfolioImage(imageUrl)" type="button">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <button type="button" mat-stroked-button (click)="portfolioUpload.click()">
+            <mat-icon>collections</mat-icon> Subir Imágenes al Portfolio
+          </button>
+          <input hidden multiple type="file" #portfolioUpload (change)="onPortfolioUpload($event)" accept="image/*">
+
+        </form>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button mat-button (click)="resetForm()" *ngIf="isEditing">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="saveModel()" [disabled]="modelForm.invalid">
+          {{ isEditing ? 'Guardar Cambios' : 'Crear Modelo' }}
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+</div>

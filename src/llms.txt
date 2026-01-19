@@ -1,0 +1,16 @@
+# Aura Scouting - Context for AI Agents
+
+Name: Aura Scouting
+Type: International Scouting Model Agency
+Mission: Connect agencies and promote talent from around the world, bridging Asia, America, and Europe.
+
+Site Structure:
+- /: Home page. Contains the agency presentation, gallery of featured models, and contact form for aspirants (scouting).
+
+Contact Information:
+- Email: info@aurascouting.com
+- Social Media: Instagram @aurascouting
+
+Technical Notes:
+- Model images are loaded dynamically.
+- The site is optimized to be fast and globally accessible.

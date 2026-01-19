@@ -1,0 +1,11 @@
+/* IBM Plex Mono - Local Font */
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("IBMPlexMono-ExtraLight.woff2") format("woff2");
+  font-weight: 220;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback to Google Fonts if needed */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&display=swap');

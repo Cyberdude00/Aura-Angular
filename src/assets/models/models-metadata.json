@@ -1,0 +1,28 @@
+{
+  "korea": {
+    "model_001": {
+      "name": "Anna Kim",
+      "gender": "Mujeres",
+      "height": "180cm",
+      "measurements": "85-60-90cm",
+      "hair": "Brown",
+      "eyes": "Brown",
+      "shoe": "38 EU",
+      "availability": "on",
+      "download": null
+    }
+  },
+  "china": {
+    "model_001": {
+      "name": "Li Wei",
+      "gender": "Mujeres",
+      "height": "175cm",
+      "measurements": "82-58-88cm",
+      "hair": "Black",
+      "eyes": "Brown",
+      "shoe": "37 EU",
+      "availability": "on",
+      "download": null
+    }
+  }
+}

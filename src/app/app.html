@@ -1,0 +1,19 @@
+<app-header></app-header>
+
+<main>
+  <!-- Aquí se cargará tu Landing Page automáticamente -->
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer></app-footer>
+
+<!-- Banner de Cookies (Lógica en app.component.ts) -->
+<div id="cookieBanner" *ngIf="showCookieBanner">
+    <p style="margin:0;line-height:1.5;">
+        We use cookies to improve your experience. By using our site, you agree to our
+        <a href="/privacy-policy" style="color:#fff;text-decoration:underline;" target="_blank">Privacy Policy</a>.
+    </p>
+    <button (click)="acceptCookies()" style="margin-top:12px;padding:8px 20px;border:none;border-radius:8px;
+            background-color:#fff;color:#000;font-weight:600;font-size:14px;
+            cursor:pointer;">OK</button>
+</div>
